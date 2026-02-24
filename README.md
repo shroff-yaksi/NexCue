@@ -1,40 +1,27 @@
-# NexCue — Your Universal "What's Next?" Engine
+<div align="center">
 
-> **Platform:** Web PWA (Next.js 14) · **Stage:** Pre-development (docs only) · **Target Launch:** May 22, 2026  
-> **Market:** Global (English-first, India priority) · **Team:** 4 members
+# ⚡ NexCue
 
-NexCue is a **universal content queue and decision engine**. You save too much — YouTube, recipes, articles, Netflix shows, courses — and never get back to any of it. NexCue brings everything into one inbox and answers one question: **"What should I do next?"**
+**Your universal "What's Next?" engine.**
 
-> *Decide less. Do more.*
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
+![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
 
----
+*Decide less. Do more.*
 
-## The Problem
-
-| Platform | What You Save | % Ever Revisited |
-|----------|--------------|-----------------|
-| Instagram | Posts, Reels | 5% |
-| YouTube | Watch Later | 10% |
-| Browser | Bookmarks | 2% |
-| Podcast Apps | Episodes | 15% |
-| Notes App | Screenshots | 15% |
-
-Thousands of items saved. Decision paralysis. Nothing ever watched.
+</div>
 
 ---
 
-## How It Works
+## ✨ Overview
 
-```
-1. Add anything  →  Paste a URL, share from any app, or type it manually
-2. Tap "Decide"  →  Pick how much time you have (15 / 30 / 60 min)
-3. Get a match   →  NexCue picks the best item for your time + mood
-4. Start it      →  One tap. No more scrolling.
-```
+You save too much — YouTube videos, recipes, articles, Netflix shows, courses — and never get back to any of it. NexCue pulls everything into one inbox and answers a single question: **"What should I do next?"** Pick your available time, and NexCue picks what to consume.
 
 ---
 
-## Content Categories (Built-in)
+## 🗂️ Content Categories
 
 | Category | Examples |
 |----------|---------|
@@ -43,53 +30,48 @@ Thousands of items saved. Decision paralysis. Nothing ever watched.
 | 🎧 Listen | Podcasts, audiobooks, albums |
 | 🎓 Learn | Courses, tutorials, workshops |
 | 🍳 Cook | Recipes, meal ideas |
-| ⚡ Do | Side projects, tasks |
+| ⚡ Do | Side projects, DIY, tasks |
 | 🛒 Buy | Wishlist, shopping |
 | ✨ Custom | Anything you define |
 
 ---
 
-## Tech Stack
+## 🎯 The Decide Engine
 
-| Layer | Technology |
-|-------|-----------|
+```
+You pick  →  How much time?  [15 min] [30 min] [45 min] [60+ min]
+            What mood?       [Watch] [Read] [Listen] [Any]
+
+NexCue picks  →  The perfect item from your queue. One tap to start.
+```
+
+The algorithm weighs: time match · priority · age · mood · completion history.
+
+---
+
+## ⚙️ Tech Stack
+
+| Layer | Tech |
+|-------|------|
 | Framework | Next.js 14 (App Router) |
 | Language | TypeScript |
 | Database | Supabase (PostgreSQL + RLS) |
-| Auth | Supabase Auth (Email, Google, Apple) |
+| Auth | Supabase Auth — Email, Google, Apple |
 | Hosting | Vercel |
-| State | React Query (TanStack Query) |
+| State | TanStack Query |
 | Styling | Tailwind CSS |
 | Animations | Framer Motion |
-| Metadata API | TMDB (movies/shows), Open Graph (URLs) |
+| Metadata | TMDB API · Open Graph |
 
 ---
 
-## Project Status
+## 📌 Ground Rules
 
-> ⚠️ **Pre-development** — Documentation and planning complete. No code written yet.
-
-See [`REMAINING_TASKS.md`](./REMAINING_TASKS.md) for the full phased build plan.
-
----
-
-## Roadmap
-
-| Phase | Timeline | Focus |
-|-------|----------|-------|
-| Phase 1 | Feb – Mar 2026 | Setup, Auth, Base UI |
-| Phase 2 | Feb 22 – Mar 28 | Core MVP: Inbox + Decide Engine |
-| Phase 3 | Mar 29 – Apr 18 | History, Insights, Polish |
-| Phase 4 | Apr 19 – May 22 | PWA, QA, Product Hunt Launch |
-| Post-MVP | Month 5–7 | Share Extensions, Browser Extension |
-| Future | Year 2–3 | AI, Native Apps, Enterprise |
+> **Never** scrape Instagram, Netflix, TikTok, or Twitter.  
+> Use share-sheet or official APIs only — always.
 
 ---
 
-## Key Constraint
-
-> Never scrape Instagram, Netflix, TikTok, or Twitter. Use share-sheet or official APIs only.
-
----
-
-*Target: Product Hunt launch May 22, 2026*
+<div align="center">
+<sub>Universal content queue · PWA · Product Hunt target: May 22, 2026</sub>
+</div>
