@@ -1,0 +1,47 @@
+# NexCue — client-visible error codes + i18n (en/hi)
+# Returned by Server Actions and the 3 REST routes in the shape:
+#   { ok: false, error: { code, message, messageHi } }
+# Updated: 2026-05-15
+
+validation_failed:
+  http: 400
+  en: "Something in the form isn't right. Please check and try again."
+  hi: "फ़ॉर्म में कुछ ठीक नहीं है। कृपया जाँचकर दोबारा प्रयास करें।"
+
+item_not_found:
+  http: 404
+  en: "We couldn't find that item."
+  hi: "वह आइटम नहीं मिला।"
+
+queue_empty:
+  http: 200
+  note: "Not a true error — getNext found nothing to pick. UI shows the cold-start state."
+  en: "Nothing to decide yet. Add a few things or seed a sample queue."
+  hi: "अभी तय करने के लिए कुछ नहीं है। कुछ चीज़ें जोड़ें या सैंपल क्यू बनाएँ।"
+
+metadata_unavailable:
+  http: 200
+  note: "OG/TMDB lookup failed; the item still saves with the raw URL."
+  en: "Couldn't fetch the preview, but we saved the link."
+  hi: "प्रीव्यू नहीं मिल पाया, पर लिंक सहेज लिया गया है।"
+
+not_authenticated:
+  http: 401
+  en: "Please sign in to continue."
+  hi: "जारी रखने के लिए कृपया साइन इन करें।"
+
+import_partial:
+  http: 200
+  note: "Some URLs in a paste-many import couldn't be added."
+  en: "Added what we could. A few links couldn't be imported."
+  hi: "जो जोड़ सकते थे, जोड़ दिया। कुछ लिंक इम्पोर्ट नहीं हो पाए।"
+
+rate_limited:
+  http: 429
+  en: "Too many requests. Please wait a moment."
+  hi: "बहुत सारे अनुरोध। कृपया थोड़ी देर रुकें।"
+
+internal_error:
+  http: 500
+  en: "Something went wrong on our end. Please try again."
+  hi: "हमारी ओर से कुछ गड़बड़ हुई। कृपया दोबारा प्रयास करें।"

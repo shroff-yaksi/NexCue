@@ -1,77 +1,15 @@
-<div align="center">
+# NexCue
 
-# ⚡ NexCue
+> Your universal "what's next?" engine. One inbox for everything you save, one Decide flow that picks the single right item by your available time and mood. *Decide less. Do more.*
 
-**Your universal "What's Next?" engine.**
+You save too much — YouTube Watch Later, Netflix My List, bookmarks, recipes, courses, podcasts, wishlists — and get back to almost none of it. NexCue pulls everything into one inbox and answers a single question: **"What should I do next?"** Tell it how much time you have and (optionally) your mood; it picks one thing from your queue and lets you start in one tap. It tackles two real problems: **content guilt** (the graveyard of saved-but-untouched items) and **decision paralysis** (20 minutes of "what should I watch?" every night).
 
-![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
-![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
-![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
+**Honest about the graveyard:** Pocket, Raindrop, and Matter all built good save-it-later products and all failed to monetize. NexCue's bet is the *Decide* loop and Weekly Active Completions, not yet-another-inbox.
 
-*Decide less. Do more.*
+**Stack:** Next.js 16 (App Router + Cache Components) · TypeScript · Supabase (Postgres, Auth, RLS) · Tailwind + shadcn/ui · TanStack Query · Framer Motion · next-pwa · Vercel.
 
-</div>
+**Wedge:** the Decide loop. Saving is solved and commoditised; *choosing what to actually do* is not. One scored item at a time, never a grid — the antidote to decision paralysis.
 
----
+**Ground rules:** Never scrape Instagram / Netflix / TikTok / X — share-sheet + URL paste + official APIs only. Plain domain names in code and schema (`saved_item`, `category`, `mood`, `time_budget`, `completion`); "Cue" is a marketing word only, never in code, tables, or columns.
 
-## ✨ Overview
-
-You save too much — YouTube videos, recipes, articles, Netflix shows, courses — and never get back to any of it. NexCue pulls everything into one inbox and answers a single question: **"What should I do next?"** Pick your available time, and NexCue picks what to consume.
-
----
-
-## 🗂️ Content Categories
-
-| Category | Examples |
-|----------|---------|
-| 📺 Watch | YouTube, Netflix, saved reels |
-| 📚 Read | Articles, books, newsletters |
-| 🎧 Listen | Podcasts, audiobooks, albums |
-| 🎓 Learn | Courses, tutorials, workshops |
-| 🍳 Cook | Recipes, meal ideas |
-| ⚡ Do | Side projects, DIY, tasks |
-| 🛒 Buy | Wishlist, shopping |
-| ✨ Custom | Anything you define |
-
----
-
-## 🎯 The Decide Engine
-
-```
-You pick  →  How much time?  [15 min] [30 min] [45 min] [60+ min]
-            What mood?       [Watch] [Read] [Listen] [Any]
-
-NexCue picks  →  The perfect item from your queue. One tap to start.
-```
-
-The algorithm weighs: time match · priority · age · mood · completion history.
-
----
-
-## ⚙️ Tech Stack
-
-| Layer | Tech |
-|-------|------|
-| Framework | Next.js 14 (App Router) |
-| Language | TypeScript |
-| Database | Supabase (PostgreSQL + RLS) |
-| Auth | Supabase Auth — Email, Google, Apple |
-| Hosting | Vercel |
-| State | TanStack Query |
-| Styling | Tailwind CSS |
-| Animations | Framer Motion |
-| Metadata | TMDB API · Open Graph |
-
----
-
-## 📌 Ground Rules
-
-> **Never** scrape Instagram, Netflix, TikTok, or Twitter.  
-> Use share-sheet or official APIs only — always.
-
----
-
-<div align="center">
-<sub>Universal content queue · PWA · Product Hunt target: May 22, 2026</sub>
-</div>
+**Docs:** Machine-readable contracts live in [contracts/](./contracts). Full plan & spec: kept in the portfolio `planning/` workspace (not in this public repo).

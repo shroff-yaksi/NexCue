@@ -1,0 +1,235 @@
+openapi: 3.1.0
+info:
+  title: NexCue Contract
+  version: 0.1.0
+  description: >
+    Single source for type generation. NexCue mutations are Next.js 16 Server Actions, not REST
+    (DL-2026-05-08-b). This file documents the Server Action input/output SHAPES as virtual
+    operations under x-action so types generate from one place; the only real HTTP endpoints are
+    the OG proxy, TMDB proxy, and Stripe webhook. Plain domain names only — no "cue" in code.
+  x-updated: "2026-05-15"
+
+# ---------------------------------------------------------------------------
+# Server Actions (app/_actions/*.ts) — documented for type-gen, not HTTP routes.
+# ---------------------------------------------------------------------------
+x-server-actions:
+  addItem:
+    description: Add a saved_item; enrich via OG/TMDB if a url is given.
+    input:
+      $ref: '#/components/schemas/AddItemInput'
+    output:
+      $ref: '#/components/schemas/SavedItem'
+  getNext:
+    description: The Decide engine. Pick one item by time + mood + category, or null.
+    input:
+      $ref: '#/components/schemas/GetNextInput'
+    output:
+      oneOf:
+        - $ref: '#/components/schemas/SavedItem'
+        - type: "null"
+  markComplete:
+    description: Close a loop; writes a completion (outcome=completed).
+    input:
+      $ref: '#/components/schemas/MarkCompleteInput'
+    output:
+      $ref: '#/components/schemas/Completion'
+  snooze:
+    description: Hide an item until a date without changing status.
+    input:
+      $ref: '#/components/schemas/SnoozeInput'
+    output:
+      $ref: '#/components/schemas/SavedItem'
+  skip:
+    description: Skip a suggestion; not_interested removes it from future picks.
+    input:
+      $ref: '#/components/schemas/SkipInput'
+    output:
+      $ref: '#/components/schemas/Completion'
+  importFromSource:
+    description: Bulk import — paste-many URLs (cold-start) or a share-sheet payload.
+    input:
+      $ref: '#/components/schemas/ImportInput'
+    output:
+      type: object
+      properties:
+        added: { type: integer }
+
+# ---------------------------------------------------------------------------
+# The only real HTTP routes.
+# ---------------------------------------------------------------------------
+paths:
+  /api/og:
+    get:
+      summary: Open Graph proxy (server-side metadata fetch).
+      parameters:
+        - name: url
+          in: query
+          required: true
+          schema: { type: string, format: uri }
+      responses:
+        "200":
+          description: Metadata
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Metadata' }
+        default:
+          $ref: '#/components/responses/Error'
+  /api/tmdb:
+    get:
+      summary: TMDB proxy (movie/show metadata).
+      parameters:
+        - name: q
+          in: query
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: Metadata
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Metadata' }
+        default:
+          $ref: '#/components/responses/Error'
+  /api/stripe/webhook:
+    post:
+      summary: Stripe webhook (Month 3+, Pro + LTD).
+      responses:
+        "200": { description: Acknowledged }
+        default:
+          $ref: '#/components/responses/Error'
+
+components:
+  responses:
+    Error:
+      description: Standard error envelope.
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorEnvelope' }
+
+  schemas:
+    SavedItem:
+      type: object
+      required: [id, title, categoryId, timeBudget, priority, status, createdAt]
+      properties:
+        id: { type: string, format: uuid }
+        title: { type: string }
+        url: { type: string, format: uri, nullable: true }
+        thumbnailUrl: { type: string, nullable: true }
+        categoryId: { type: string, format: uuid }
+        sourceId: { type: string, format: uuid, nullable: true }
+        timeBudget: { $ref: '#/components/schemas/TimeBudget' }
+        priority: { $ref: '#/components/schemas/Priority' }
+        moods:
+          type: array
+          items: { $ref: '#/components/schemas/Mood' }
+        status: { $ref: '#/components/schemas/ItemStatus' }
+        notes: { type: string, nullable: true }
+        snoozedUntil: { type: string, format: date-time, nullable: true }
+        createdAt: { type: string, format: date-time }
+
+    Completion:
+      type: object
+      required: [id, savedItemId, outcome, completedAt]
+      properties:
+        id: { type: string, format: uuid }
+        savedItemId: { type: string, format: uuid }
+        outcome: { $ref: '#/components/schemas/CompletionOutcome' }
+        note: { type: string, nullable: true }
+        completedAt: { type: string, format: date-time }
+
+    Metadata:
+      type: object
+      properties:
+        title: { type: string, nullable: true }
+        image: { type: string, nullable: true }
+        description: { type: string, nullable: true }
+        durationMinutes: { type: integer, nullable: true }
+
+    AddItemInput:
+      type: object
+      properties:
+        url: { type: string, format: uri }
+        title: { type: string }
+        categoryId: { type: string, format: uuid }
+        timeBudget: { $ref: '#/components/schemas/TimeBudget' }
+        priority: { $ref: '#/components/schemas/Priority' }
+        moods:
+          type: array
+          items: { $ref: '#/components/schemas/Mood' }
+        notes: { type: string }
+
+    GetNextInput:
+      type: object
+      required: [timeBudget]
+      properties:
+        timeBudget: { $ref: '#/components/schemas/TimeBudget' }
+        mood: { $ref: '#/components/schemas/Mood' }
+        categoryId: { type: string, format: uuid }
+
+    MarkCompleteInput:
+      type: object
+      required: [itemId]
+      properties:
+        itemId: { type: string, format: uuid }
+        note: { type: string }
+
+    SnoozeInput:
+      type: object
+      required: [itemId, until]
+      properties:
+        itemId: { type: string, format: uuid }
+        until: { type: string, format: date-time }
+
+    SkipInput:
+      type: object
+      required: [itemId]
+      properties:
+        itemId: { type: string, format: uuid }
+        notInterested: { type: boolean }
+
+    ImportInput:
+      oneOf:
+        - type: object
+          required: [urls]
+          properties:
+            urls:
+              type: array
+              items: { type: string, format: uri }
+        - type: object
+          required: [sourceType, payload]
+          properties:
+            sourceType: { $ref: '#/components/schemas/SourceType' }
+            payload: { type: object, additionalProperties: true }
+
+    ErrorEnvelope:
+      type: object
+      required: [ok, error]
+      properties:
+        ok: { type: boolean, enum: [false] }
+        error:
+          type: object
+          required: [code, message]
+          properties:
+            code: { type: string, description: "See contracts/error-codes.yaml" }
+            message: { type: string }
+            messageHi: { type: string }
+
+    # Enums mirror contracts/enums.yaml (single source of truth there).
+    SourceType:
+      type: string
+      enum: [youtube, netflix, web, podcast, recipe, course, book, shopping, other]
+    TimeBudget:
+      type: string
+      enum: [quick, medium, long]
+    Mood:
+      type: string
+      enum: [relaxing, energizing, focused, fun, productive]
+    Priority:
+      type: string
+      enum: [low, normal, high, urgent]
+    ItemStatus:
+      type: string
+      enum: [new, in_progress, completed, skipped, archived]
+    CompletionOutcome:
+      type: string
+      enum: [completed, skipped, not_interested]

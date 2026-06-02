@@ -1,0 +1,80 @@
+# NexCue — canonical enums
+# Single source for all enum values. DB + wire both use lower_snake_case (playbook).
+# Plain domain names only; "cue" never appears here.
+# Updated: 2026-05-15
+
+source_type:
+  description: Where a saved_item came from.
+  values:
+    - youtube
+    - netflix
+    - web
+    - podcast
+    - recipe
+    - course
+    - book
+    - shopping
+    - other
+
+category:
+  description: Built-in default categories. Users may add custom ones (stored as rows, not enum).
+  values:
+    - watch
+    - read
+    - listen
+    - learn
+    - cook
+    - do
+    - buy
+    - custom
+
+time_budget:
+  description: How much time the user has. Primary Decide filter.
+  values:
+    - quick      # <= 15 min
+    - medium     # 20-45 min
+    - long       # 60+ min
+  minutes:
+    quick: 15
+    medium: 45
+    long: 999
+
+mood:
+  description: Felt state for matching, on items (tags) and Decide requests (mood_snapshots).
+  values:
+    - relaxing
+    - energizing
+    - focused
+    - fun
+    - productive
+
+priority:
+  description: User-set importance of a saved_item.
+  values:
+    - low
+    - normal
+    - high
+    - urgent
+
+item_status:
+  description: Lifecycle of a saved_item. snoozed_until hides without changing status.
+  values:
+    - new
+    - in_progress
+    - completed
+    - skipped
+    - archived
+
+completion_outcome:
+  description: How a loop closed. Only `completed` counts toward Weekly Active Completions.
+  values:
+    - completed
+    - skipped
+    - not_interested
+
+billing_tier:
+  description: Account tier. Free at launch; Pro + LTD from Month 3.
+  values:
+    - free
+    - pro          # ₹149/mo
+    - lifetime     # ₹1,499 LTD, first 250

@@ -1,0 +1,77 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "_meta": {
+    "project": "NexCue",
+    "updated": "2026-05-15",
+    "note": "Single source for UI tokens. See DESIGN.md (why) and docs/07-design-system.md (components). Plain names only; no 'cue' in code."
+  },
+  "color": {
+    "brand": {
+      "primary": { "value": "#6D28D9", "comment": "Violet — buttons, links, active states, the Decide CTA" },
+      "accent": { "value": "#06B6D4", "comment": "Cyan — completion moments only; signals 'you closed a loop'" }
+    },
+    "ink": {
+      "900": { "value": "#0F172A", "comment": "Body text" },
+      "500": { "value": "#64748B", "comment": "Secondary text, captions" }
+    },
+    "surface": {
+      "0": { "value": "#FFFFFF", "comment": "Cards (light)" },
+      "50": { "value": "#F8FAFC", "comment": "Page background (light)" }
+    },
+    "feedback": {
+      "success": { "value": "#16A34A" },
+      "warn": { "value": "#D97706" },
+      "error": { "value": "#DC2626" }
+    },
+    "dark": {
+      "ink": {
+        "900": { "value": "#F1F5F9" },
+        "500": { "value": "#94A3B8" }
+      },
+      "surface": {
+        "0": { "value": "#1E293B" },
+        "50": { "value": "#0F172A" }
+      }
+    }
+  },
+  "space": {
+    "_base": { "value": "4", "comment": "px base unit" },
+    "1": { "value": "4" },
+    "2": { "value": "8" },
+    "3": { "value": "12" },
+    "4": { "value": "16", "comment": "between siblings" },
+    "5": { "value": "24", "comment": "between sections" },
+    "6": { "value": "32" }
+  },
+  "radius": {
+    "md": { "value": "12", "comment": "cards, Decide card, inputs" },
+    "pill": { "value": "9999", "comment": "chips, avatars (always round)" }
+  },
+  "typography": {
+    "fontFamily": { "value": "Inter, system-ui, sans-serif" },
+    "weight": {
+      "regular": { "value": "400" },
+      "medium": { "value": "500" },
+      "semibold": { "value": "600", "comment": "headings" },
+      "_min": { "value": "400", "comment": "weight <= 300 is forbidden (playbook)" }
+    },
+    "size": {
+      "body": { "value": "16" },
+      "caption": { "value": "14" },
+      "h2": { "value": "20" },
+      "h1": { "value": "28" }
+    },
+    "lineHeight": { "body": { "value": "1.6" } }
+  },
+  "motion": {
+    "routeFade": { "value": "200ms" },
+    "completionBurst": { "value": "600ms", "comment": "the one allowed flourish" }
+  },
+  "touchTarget": {
+    "mobile": { "value": "48", "comment": "dp min" },
+    "web": { "value": "44", "comment": "px min" }
+  },
+  "elevation": {
+    "card": { "value": "0 1px 3px rgba(15,23,42,0.08)", "comment": "lift only; no decorative shadows" }
+  }
+}
