@@ -1,0 +1,35 @@
+@import 'tailwindcss';
+
+/* NexCue brand tokens — mirrors contracts/design-tokens.json.
+   Throwaway waitlist landing; the tokens file stays the single source of truth. */
+@theme {
+	--font-sans: 'Inter', system-ui, sans-serif;
+
+	--color-brand: #6d28d9; /* violet — CTA */
+	--color-brand-600: #5b21b6; /* hover */
+	--color-accent: #06b6d4; /* cyan — completion moment */
+
+	--color-ink: #0f172a;
+	--color-ink-soft: #64748b;
+	--color-surface: #ffffff;
+	--color-surface-muted: #f8fafc;
+
+	--color-error: #dc2626;
+	--color-success: #16a34a;
+
+	--radius-card: 12px;
+}
+
+html {
+	background-color: var(--color-surface-muted);
+	color: var(--color-ink);
+	font-family: var(--font-sans);
+	-webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-color-scheme: dark) {
+	html {
+		background-color: #0f172a;
+		color: #f1f5f9;
+	}
+}
